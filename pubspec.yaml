@@ -1,11 +1,10 @@
 name: retorno_sucesso_ou_erro_package
-description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage:
+description: Package para retornar o resultado da função determinando o sucesso ou erro.
+version: 1.0.0
+homepage: https://github.com/pwlimaverde/retorno_sucesso_ou_erro_package
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0-0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
