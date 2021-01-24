@@ -1,6 +1,6 @@
 ## [1.0.2] - TODO: Add release date.
 
-* TODO: Corrçãso de sintax
+* TODO: Correção de sintax
 
 ## [1.0.1] - TODO: Add release date.
 
