@@ -1,3 +1,7 @@
+## [1.0.1] - TODO: Add release date.
+
+* TODO: Inclusão da abstração do usecase
+
 ## [1.0.0] - TODO: Add release date.
 
 * TODO: Inicio da criação do package
