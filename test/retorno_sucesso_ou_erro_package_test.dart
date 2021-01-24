@@ -28,7 +28,7 @@ void main() {
   });
 
   test('Deve retornar um error', () {
-    final result = ErrorRetorno(
+    final result = ErroRetorno(
       erro: ErroInesperado(
         mensagem: "teste erro",
       ),
@@ -37,6 +37,6 @@ void main() {
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
     ));
-    expect(result, isA<ErrorRetorno>());
+    expect(result, isA<ErroRetorno>());
   });
 }

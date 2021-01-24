@@ -1,3 +1,7 @@
+## [1.0.2] - TODO: Add release date.
+
+* TODO: Corrçãso de sintax
+
 ## [1.0.1] - TODO: Add release date.
 
 * TODO: Inclusão da abstração do usecase

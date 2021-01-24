@@ -1,6 +1,6 @@
-abstract class AppError implements Exception {}
+abstract class AppErro implements Exception {}
 
-class ErroInesperado implements AppError {
+class ErroInesperado implements AppErro {
   final String mensagem;
 
   ErroInesperado({required this.mensagem});

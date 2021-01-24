@@ -4,13 +4,13 @@ abstract class RetornoSucessoOuErro<R> {
   const RetornoSucessoOuErro();
   fold({
     required R Function(SucessoRetorno) sucesso,
-    required AppError Function(ErrorRetorno) erro,
+    required AppErro Function(ErroRetorno) erro,
   }) {
     final _this = this;
     if (_this is SucessoRetorno<R>) {
       return sucesso(_this);
     } else {
-      return erro(_this as ErrorRetorno);
+      return erro(_this as ErroRetorno);
     }
   }
 }
@@ -20,7 +20,7 @@ class SucessoRetorno<R> extends RetornoSucessoOuErro<R> {
   const SucessoRetorno({required this.resultado});
 }
 
-class ErrorRetorno<R> extends RetornoSucessoOuErro<R> {
-  final AppError erro;
-  const ErrorRetorno({required this.erro});
+class ErroRetorno<R> extends RetornoSucessoOuErro<R> {
+  final AppErro erro;
+  const ErroRetorno({required this.erro});
 }
