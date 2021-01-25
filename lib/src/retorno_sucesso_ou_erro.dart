@@ -20,7 +20,7 @@ class SucessoRetorno<R> extends RetornoSucessoOuErro<R> {
   const SucessoRetorno({required this.resultado});
 }
 
-class ErroRetorno<R> extends RetornoSucessoOuErro<R> {
+class ErroRetorno<AppErro> extends RetornoSucessoOuErro<AppErro> {
   final AppErro erro;
   const ErroRetorno({required this.erro});
 }
