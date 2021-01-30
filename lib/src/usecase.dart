@@ -1,14 +1,18 @@
 import 'erros.dart';
+import 'repositorio.dart';
 import 'retorno_sucesso_ou_erro.dart';
 
 abstract class UseCase<R, Parametros> {
-  Future<RetornoSucessoOuErro<R>> call(Parametros parametros);
+  Future<RetornoSucessoOuErro<R>> call({required Parametros parametros});
 
-  Future<RetornoSucessoOuErro<R>> resultado(
-      {required Future<RetornoSucessoOuErro<R>> repositorio,
-      required String erro}) async {
+  Future<RetornoSucessoOuErro<R>> retorno({
+    required String erro,
+    required Parametros parametros,
+    required Repositorio<R, Parametros> repositorio,
+  }) async {
     try {
-      RetornoSucessoOuErro<R> resultado = await repositorio;
+      RetornoSucessoOuErro<R> resultado =
+          await repositorio(parametros: parametros);
       return resultado;
     } catch (e) {
       return ErroRetorno(
