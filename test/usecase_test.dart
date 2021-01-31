@@ -15,7 +15,7 @@ class RepoImpl implements Repositorio<bool, NoParams> {
 }
 
 class ChecarConeccaoUsecase extends UseCase<bool, NoParams> {
-  final RepoImpl repositorio;
+  final Repositorio<bool, NoParams> repositorio;
 
   ChecarConeccaoUsecase({required this.repositorio});
 
