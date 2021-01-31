@@ -1,6 +1,6 @@
 ## [1.0.3]
 
-* TODO: Abstração dos Repositórios
+* TODO: Abstração dos Repositórios e Datasouce
 
 ## [1.0.2]
 
