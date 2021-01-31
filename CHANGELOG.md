@@ -1,3 +1,7 @@
+## [1.0.4]
+
+* TODO: Correção Exportes
+
 ## [1.0.3]
 
 * TODO: Abstração dos Repositórios e Datasouce
