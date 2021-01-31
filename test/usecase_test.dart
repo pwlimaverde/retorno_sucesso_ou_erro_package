@@ -3,23 +3,26 @@ import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.
 import 'package:retorno_sucesso_ou_erro_package/src/repositorio.dart';
 
 class RepoImpl implements Repositorio<bool, NoParams> {
+  final RetornoSucessoOuErro<bool> result;
+
+  RepoImpl(this.result);
+
   @override
   Future<RetornoSucessoOuErro<bool>> call(
       {required NoParams parametros}) async {
-    final result = SucessoRetorno<bool>(resultado: true);
     return result;
   }
 }
 
 class ChecarConeccaoUsecase extends UseCase<bool, NoParams> {
-  final Repositorio<bool, NoParams> repositorio;
+  final RepoImpl repositorio;
 
   ChecarConeccaoUsecase({required this.repositorio});
 
   @override
   Future<RetornoSucessoOuErro<bool>> call(
       {required NoParams parametros}) async {
-    final resultado = await retorno(
+    final resultado = await retornoRepositorio(
       repositorio: repositorio,
       erro: "teste usecase",
       parametros: NoParams(),
@@ -32,12 +35,20 @@ void main() {
   late ChecarConeccaoUsecase checarConeccaoUseCase;
   late RepoImpl repositorio;
 
-  setUp(() {
-    repositorio = RepoImpl();
+  test('Deve retornar um sucesso com true', () async {
+    repositorio = RepoImpl(SucessoRetorno<bool>(resultado: true));
     checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
+    final result = await checarConeccaoUseCase(parametros: NoParams());
+    print(result.fold(
+      sucesso: (value) => value.resultado,
+      erro: (value) => value.erro,
+    ));
+    expect(result, isA<SucessoRetorno<bool>>());
   });
 
-  test('Deve retornar um sucesso com true', () async {
+  test('Deve retornar um sucesso com false', () async {
+    repositorio = RepoImpl(SucessoRetorno<bool>(resultado: false));
+    checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
     final result = await checarConeccaoUseCase(parametros: NoParams());
     print(result.fold(
       sucesso: (value) => value.resultado,
