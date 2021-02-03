@@ -1,15 +1,32 @@
 import 'package:flutter_test/flutter_test.dart';
+
 import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
 import 'package:retorno_sucesso_ou_erro_package/src/repositorio.dart';
 
-class RepoImpl implements Repositorio<bool, NoParams> {
-  final RetornoSucessoOuErro<bool> result;
+class DatasourceImpl implements Datasource<bool, NoParams> {
+  final RetornoSucessoOuErro<bool> resultado;
+  DatasourceImpl({
+    required this.resultado,
+  });
+  @override
+  Future<RetornoSucessoOuErro<bool>> call(
+      {required NoParams parametros}) async {
+    return resultado;
+  }
+}
 
-  RepoImpl(this.result);
+class RepoImpl extends Repositorio<bool, NoParams> {
+  final Datasource<bool, NoParams> datasource;
+
+  RepoImpl({required this.datasource});
 
   @override
   Future<RetornoSucessoOuErro<bool>> call(
       {required NoParams parametros}) async {
+    final result = await retornoDatasource(
+        datasource: datasource,
+        erro: "teste repositorio",
+        parametros: NoParams());
     return result;
   }
 }
@@ -34,9 +51,12 @@ class ChecarConeccaoUsecase extends UseCase<bool, NoParams> {
 void main() {
   late ChecarConeccaoUsecase checarConeccaoUseCase;
   late RepoImpl repositorio;
+  late Datasource<bool, NoParams> resultado;
 
   test('Deve retornar um sucesso com true', () async {
-    repositorio = RepoImpl(SucessoRetorno<bool>(resultado: true));
+    resultado =
+        DatasourceImpl(resultado: SucessoRetorno<bool>(resultado: true));
+    repositorio = RepoImpl(datasource: resultado);
     checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
     final result = await checarConeccaoUseCase(parametros: NoParams());
     print(result.fold(
@@ -47,7 +67,9 @@ void main() {
   });
 
   test('Deve retornar um sucesso com false', () async {
-    repositorio = RepoImpl(SucessoRetorno<bool>(resultado: false));
+    resultado =
+        DatasourceImpl(resultado: SucessoRetorno<bool>(resultado: false));
+    repositorio = RepoImpl(datasource: resultado);
     checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
     final result = await checarConeccaoUseCase(parametros: NoParams());
     print(result.fold(
