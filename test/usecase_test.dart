@@ -1,35 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
 import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
 import 'package:retorno_sucesso_ou_erro_package/src/repositorio.dart';
-
-class DatasourceImpl implements Datasource<bool, NoParams> {
-  final RetornoSucessoOuErro<bool> resultado;
-  DatasourceImpl({
-    required this.resultado,
-  });
-  @override
-  Future<RetornoSucessoOuErro<bool>> call(
-      {required NoParams parametros}) async {
-    return resultado;
-  }
-}
-
-class RepoImpl extends Repositorio<bool, NoParams> {
-  final Datasource<bool, NoParams> datasource;
-
-  RepoImpl({required this.datasource});
-
-  @override
-  Future<RetornoSucessoOuErro<bool>> call(
-      {required NoParams parametros}) async {
-    final result = await retornoDatasource(
-        datasource: datasource,
-        erro: "teste repositorio",
-        parametros: NoParams());
-    return result;
-  }
-}
 
 class ChecarConeccaoUsecase extends UseCase<bool, NoParams> {
   final Repositorio<bool, NoParams> repositorio;
@@ -48,34 +21,75 @@ class ChecarConeccaoUsecase extends UseCase<bool, NoParams> {
   }
 }
 
+class RepoImplMock extends Mock implements Repositorio<bool, NoParams> {}
+
 void main() {
+  late Repositorio<bool, NoParams> repositorio;
   late ChecarConeccaoUsecase checarConeccaoUseCase;
-  late RepoImpl repositorio;
-  late Datasource<bool, NoParams> resultado;
+
+  setUp(() {
+    repositorio = RepoImplMock();
+  });
 
   test('Deve retornar um sucesso com true', () async {
-    resultado =
-        DatasourceImpl(resultado: SucessoRetorno<bool>(resultado: true));
-    repositorio = RepoImpl(datasource: resultado);
     checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
+    when(repositorio)
+        .calls(#call)
+        .thenAnswer((_) => Future.value(SucessoRetorno(resultado: true)));
     final result = await checarConeccaoUseCase(parametros: NoParams());
-    print(result.fold(
+    print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
-    ));
+    )}");
     expect(result, isA<SucessoRetorno<bool>>());
   });
 
   test('Deve retornar um sucesso com false', () async {
-    resultado =
-        DatasourceImpl(resultado: SucessoRetorno<bool>(resultado: false));
-    repositorio = RepoImpl(datasource: resultado);
     checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
+    when(repositorio)
+        .calls(#call)
+        .thenAnswer((_) => Future.value(SucessoRetorno(resultado: false)));
     final result = await checarConeccaoUseCase(parametros: NoParams());
-    print(result.fold(
+    print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
-    ));
+    )}");
     expect(result, isA<SucessoRetorno<bool>>());
   });
+
+  test('Deve retornar um Erro com ErroInesperado', () async {
+    checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
+    when(repositorio).calls(#call).thenAnswer((_) => Future.value(
+        ErroRetorno(erro: ErroInesperado(mensagem: "teste erro"))));
+    final result = await checarConeccaoUseCase(parametros: NoParams());
+    print("teste result - ${result.fold(
+      sucesso: (value) => value.resultado,
+      erro: (value) => value.erro,
+    )}");
+    expect(result, isA<ErroRetorno>());
+  });
+
+  test('Deve retornar um Erro com ErroInesperado', () async {
+    checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
+    when(repositorio).calls(#call).thenThrow(Exception());
+    final result = await checarConeccaoUseCase(parametros: NoParams());
+    print("teste result - ${result.fold(
+      sucesso: (value) => value.resultado,
+      erro: (value) => value.erro,
+    )}");
+    expect(result, isA<ErroRetorno>());
+  });
+
+  // test('Deve retornar um sucesso com false', () async {
+  //   resultado =
+  //       DatasourceImpl(resultado: SucessoRetorno<bool>(resultado: false));
+  //   repositorio = RepoImpl(datasource: resultado);
+  //   checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
+  //   final result = await checarConeccaoUseCase(parametros: NoParams());
+  //   print(result.fold(
+  //     sucesso: (value) => value.resultado,
+  //     erro: (value) => value.erro,
+  //   ));
+  //   expect(result, isA<SucessoRetorno<bool>>());
+  // });
 }
