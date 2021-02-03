@@ -1,3 +1,7 @@
+## [1.0.5]
+
+* TODO: Padronização usecase - repositorio - datasouce
+
 ## [1.0.4]
 
 * TODO: Correção Exportes
