@@ -1,3 +1,7 @@
+## [1.0.6]
+
+* TODO: Ajustes gerais e testes ok
+
 ## [1.0.5]
 
 * TODO: Padronização usecase - repositorio - datasouce
