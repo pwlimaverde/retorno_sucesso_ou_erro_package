@@ -11,10 +11,10 @@ abstract class Repositorio<R, Parametros> {
     required Datasource<R, Parametros> datasource,
   }) async {
     try {
-      final resultado = await datasource(parametros: parametros);
-      return resultado;
+      final R resultado = await datasource(parametros: parametros);
+      return SucessoRetorno<R>(resultado: resultado);
     } catch (e) {
-      return ErroRetorno(
+      return ErroRetorno<R>(
         erro: ErroInesperado(
           mensagem: "${e.toString()} - $erro",
         ),

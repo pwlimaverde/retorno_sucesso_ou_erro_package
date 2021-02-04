@@ -14,7 +14,7 @@ abstract class UseCase<R, Parametros> {
       final resultado = await repositorio(parametros: parametros);
       return resultado;
     } catch (e) {
-      return ErroRetorno(
+      return ErroRetorno<R>(
         erro: ErroInesperado(
           mensagem: "${e.toString()} - $erro",
         ),
