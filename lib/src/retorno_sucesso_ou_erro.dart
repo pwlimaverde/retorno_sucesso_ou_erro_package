@@ -10,7 +10,7 @@ abstract class RetornoSucessoOuErro<R> {
     if (_this is SucessoRetorno<R>) {
       return sucesso(_this);
     } else {
-      return erro(_this as ErroRetorno);
+      return erro(_this as ErroRetorno<R>);
     }
   }
 }
