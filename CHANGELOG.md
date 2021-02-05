@@ -1,3 +1,7 @@
+## [1.0.7]
+
+* TODO: Ajustes na erro para AppErro direto
+
 ## [1.0.6]
 
 * TODO: Ajustes gerais e testes ok
