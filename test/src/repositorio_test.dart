@@ -14,7 +14,7 @@ class ChecarConeccaoUsecase extends UseCase<bool, NoParams> {
       {required NoParams parametros}) async {
     final resultado = await retornoRepositorio(
       repositorio: repositorio,
-      erro: "teste erro direto usecase",
+      erro: ErroInesperado(mensagem: "teste erro direto usecase"),
       parametros: NoParams(),
     );
     return resultado;
@@ -30,7 +30,7 @@ class ChecarConeccaoRepositorio extends Repositorio<bool, NoParams> {
   Future<RetornoSucessoOuErro<bool>> call({required NoParams parametros}) {
     final resultado = retornoDatasource(
       datasource: datasource,
-      erro: "teste erro direto repositorio",
+      erro: ErroInesperado(mensagem: "teste erro direto repositorio"),
       parametros: NoParams(),
     );
     return resultado;

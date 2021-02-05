@@ -6,7 +6,7 @@ abstract class UseCase<R, Parametros> {
   Future<RetornoSucessoOuErro<R>> call({required Parametros parametros});
 
   Future<RetornoSucessoOuErro<R>> retornoRepositorio({
-    required String erro,
+    required AppErro erro,
     required Parametros parametros,
     required Repositorio<R, Parametros> repositorio,
   }) async {
@@ -15,9 +15,7 @@ abstract class UseCase<R, Parametros> {
       return resultado;
     } catch (e) {
       return ErroRetorno<R>(
-        erro: ErroInesperado(
-          mensagem: "${e.toString()} - $erro",
-        ),
+        erro: erro,
       );
     }
   }

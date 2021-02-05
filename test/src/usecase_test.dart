@@ -14,8 +14,8 @@ class ChecarConeccaoUsecase extends UseCase<bool, NoParams> {
       {required NoParams parametros}) async {
     final resultado = await retornoRepositorio(
       repositorio: repositorio,
-      erro: "teste erro direto usecase",
       parametros: NoParams(),
+      erro: ErroInesperado(mensagem: "teste erro direto usecase"),
     );
     return resultado;
   }

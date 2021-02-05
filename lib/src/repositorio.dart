@@ -6,7 +6,7 @@ abstract class Repositorio<R, Parametros> {
   Future<RetornoSucessoOuErro<R>> call({required Parametros parametros});
 
   Future<RetornoSucessoOuErro<R>> retornoDatasource({
-    required String erro,
+    required AppErro erro,
     required Parametros parametros,
     required Datasource<R, Parametros> datasource,
   }) async {
@@ -15,9 +15,7 @@ abstract class Repositorio<R, Parametros> {
       return SucessoRetorno<R>(resultado: resultado);
     } catch (e) {
       return ErroRetorno<R>(
-        erro: ErroInesperado(
-          mensagem: "${e.toString()} - $erro",
-        ),
+        erro: erro,
       );
     }
   }
