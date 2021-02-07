@@ -1,3 +1,7 @@
+## [1.0.8]
+
+* TODO: Refator RetornoSucesso ou erro com a tipagem na função folder 
+
 ## [1.0.7]
 
 * TODO: Ajustes na erro para AppErro direto
