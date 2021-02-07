@@ -1,6 +1,6 @@
 name: retorno_sucesso_ou_erro_package
 description: Package para retornar o resultado da função determinando o sucesso ou erro.
-version: 1.0.7
+version: 1.0.8
 homepage: https://github.com/pwlimaverde/retorno_sucesso_ou_erro_package
 
 environment:
