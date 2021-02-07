@@ -3,8 +3,8 @@ import 'erros.dart';
 abstract class RetornoSucessoOuErro<R> {
   const RetornoSucessoOuErro();
   fold({
-    required R Function(SucessoRetorno) sucesso,
-    required AppErro Function(ErroRetorno) erro,
+    required R Function(SucessoRetorno<R>) sucesso,
+    required AppErro Function(ErroRetorno<R>) erro,
   }) {
     final _this = this;
     if (_this is SucessoRetorno<R>) {
