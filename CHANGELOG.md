@@ -1,3 +1,7 @@
+## [1.1.0]
+
+* TODO: Inclusão da função tempo de execução
+
 ## [1.0.8]
 
 * TODO: Refator RetornoSucesso ou erro com a tipagem na função folder 
