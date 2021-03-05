@@ -1,3 +1,7 @@
+## [1.2.0]
+
+* TODO: Ajustes para flutter 2.0.0.
+
 ## [1.1.0]
 
 * TODO: Inclusão da função tempo de execução
