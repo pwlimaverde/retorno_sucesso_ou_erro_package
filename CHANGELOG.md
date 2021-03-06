@@ -1,3 +1,7 @@
+## [1.3.0]
+
+* TODO: Nova feature para retorno bool global.
+
 ## [1.2.0]
 
 * TODO: Ajustes para flutter 2.0.0.
