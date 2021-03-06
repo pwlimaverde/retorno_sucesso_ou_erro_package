@@ -10,3 +10,14 @@ class ErroInesperado implements AppErro {
     return "ErroInesperado - $mensagem";
   }
 }
+
+class ErroRetornoBool implements AppErro {
+  final String mensagem;
+
+  ErroRetornoBool({required this.mensagem});
+
+  @override
+  String toString() {
+    return "ErroRetornoBool - $mensagem";
+  }
+}
