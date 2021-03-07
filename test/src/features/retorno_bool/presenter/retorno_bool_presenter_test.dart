@@ -16,7 +16,7 @@ void main() {
 
   test('Deve retornar um sucesso com true', () async {
     when(datasource).calls(#call).thenAnswer((_) => Future.value(true));
-    final result = await RetornoResultadoPresenter(
+    final result = await RetornoResultadoPresenter<bool>(
       datasource: datasource,
       mostrarTempoExecucao: true,
       nomeFeature: 'SalvarHeader',
@@ -48,7 +48,7 @@ void main() {
 
   test('Deve retornar sucesso com false', () async {
     when(datasource).calls(#call).thenAnswer((_) => Future.value(false));
-    final result = await RetornoResultadoPresenter(
+    final result = await RetornoResultadoPresenter<bool>(
       datasource: datasource,
       mostrarTempoExecucao: true,
       nomeFeature: 'SalvarHeader',
@@ -79,10 +79,10 @@ void main() {
   });
 
   test(
-      'Deve retornar ErrorSalvarHeader com Erro ao salvar os dados do header Cod.02-1',
+      'Deve retornar ErroRetornoResultado com Erro ao salvar os dados do header Cod.02-1',
       () async {
     when(datasource).calls(#call).thenThrow(Exception());
-    final result = await RetornoResultadoPresenter(
+    final result = await RetornoResultadoPresenter<bool>(
       datasource: datasource,
       mostrarTempoExecucao: true,
       nomeFeature: 'SalvarHeader',
@@ -122,5 +122,5 @@ class ParametrosSalvarHeader implements ParametrosRetornoResultado {
     required this.user,
   });
   @override
-  String get mensagemErro => "Erro ao salvar os dados do Header Cod.01-1";
+  String get mensagemErro => "Erro ao salvar os dados do Header";
 }

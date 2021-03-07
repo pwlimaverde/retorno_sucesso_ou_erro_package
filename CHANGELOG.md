@@ -1,3 +1,7 @@
+## [2.0.1]
+
+* TODO: Correção dos tipos do repositorio e presenter.
+
 ## [2.0.0]
 
 * TODO: Break point devido aos ajustes no hotfix 1.3.1.
