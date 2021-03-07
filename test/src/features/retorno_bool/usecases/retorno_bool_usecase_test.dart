@@ -9,13 +9,13 @@ class RetornoResultadoRepositorioMock extends Mock
 
 void main() {
   late Repositorio<bool, ParametrosRetornoResultado> repositorio;
-  late UseCase<bool, ParametrosRetornoResultado> retornoBoolUsecase;
+  late UseCase<bool, ParametrosRetornoResultado> retornoResultadoUsecase;
   late TempoExecucao tempo;
 
   setUp(() {
     tempo = TempoExecucao();
     repositorio = RetornoResultadoRepositorioMock();
-    retornoBoolUsecase = RetornoResultadoUsecase(repositorio: repositorio);
+    retornoResultadoUsecase = RetornoResultadoUsecase(repositorio: repositorio);
   });
 
   test('Deve retornar um sucesso com true', () async {
@@ -23,7 +23,7 @@ void main() {
     when(repositorio)
         .calls(#call)
         .thenAnswer((_) => Future.value(SucessoRetorno<bool>(resultado: true)));
-    final result = await retornoBoolUsecase(
+    final result = await retornoResultadoUsecase(
       parametros: ParametrosSalvarHeader(
         corHeader: {
           "r": 60,
@@ -55,7 +55,7 @@ void main() {
     tempo.iniciar();
     when(repositorio).calls(#call).thenAnswer(
         (_) => Future.value(SucessoRetorno<bool>(resultado: false)));
-    final result = await retornoBoolUsecase(
+    final result = await retornoResultadoUsecase(
       parametros: ParametrosSalvarHeader(
         corHeader: {
           "r": 60,
@@ -96,7 +96,7 @@ void main() {
             ),
           ),
         );
-    final result = await retornoBoolUsecase(
+    final result = await retornoResultadoUsecase(
       parametros: ParametrosSalvarHeader(
         corHeader: {
           "r": 60,
@@ -123,7 +123,7 @@ void main() {
       () async {
     tempo.iniciar();
     when(repositorio).calls(#call).thenThrow(Exception());
-    final result = await retornoBoolUsecase(
+    final result = await retornoResultadoUsecase(
       parametros: ParametrosSalvarHeader(
         corHeader: {
           "r": 60,
