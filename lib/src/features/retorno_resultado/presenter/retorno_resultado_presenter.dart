@@ -1,27 +1,27 @@
 import '../../../../retorno_sucesso_ou_erro_package.dart';
 import '../../../utilitarios/Parametros.dart';
-import '../repositories/retorno_bool_repository.dart';
-import '../usecases/retorno_bool_usecase.dart';
+import '../repositories/retorno_resultado_repository.dart';
+import '../usecases/retorno_resultado_usecase.dart';
 
-class RetornoBoolPresenter {
-  final Datasource<bool, ParametrosRetornoBool> datasource;
+class RetornoResultadoPresenter {
+  final Datasource<bool, ParametrosRetornoResultado> datasource;
   final bool mostrarTempoExecucao;
   final String nomeFeature;
 
-  RetornoBoolPresenter({
+  RetornoResultadoPresenter({
     required this.datasource,
     required this.mostrarTempoExecucao,
     required this.nomeFeature,
   });
 
   Future<RetornoSucessoOuErro<bool>> retornoBool(
-      {required ParametrosRetornoBool parametros}) async {
+      {required ParametrosRetornoResultado parametros}) async {
     TempoExecucao tempo = TempoExecucao();
     if (mostrarTempoExecucao) {
       tempo.iniciar();
     }
-    final resultado = await RetornoBoolUsecase(
-      repositorio: RetornoBoolRepositorio(
+    final resultado = await RetornoResultadoUsecase(
+      repositorio: RetornoResultadoRepositorio(
         datasource: datasource,
       ),
     )(parametros: parametros);

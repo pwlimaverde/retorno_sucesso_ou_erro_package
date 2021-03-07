@@ -1,3 +1,8 @@
+## [1.3.1]
+
+* TODO: Feature para retorno bool global alterada para RetornoResultado generico.
+* TODO: Classe NoParams mudada para arquivo Parametros e implementada à partir do ParametrosRetornoResultado com nessecidade de passagem da menssagemErro.
+
 ## [1.3.0]
 
 * TODO: Nova feature para retorno bool global.
