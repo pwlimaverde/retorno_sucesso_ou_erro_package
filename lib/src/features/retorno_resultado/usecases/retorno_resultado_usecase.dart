@@ -15,7 +15,7 @@ class RetornoResultadoUsecase<T>
       final resultado = await retornoRepositorio(
         repositorio: repositorio,
         erro: ErroRetornoResultado(
-          mensagem: "${parametros.mensagemErro} Cod.01-2",
+          mensagem: "${parametros.mensagemErro} Cod.01-1",
         ),
         parametros: parametros,
       );
@@ -23,7 +23,7 @@ class RetornoResultadoUsecase<T>
     } catch (e) {
       return ErroRetorno(
         erro: ErroRetornoResultado(
-          mensagem: "${e.toString()} - ${parametros.mensagemErro} Cod.01-3",
+          mensagem: "${e.toString()} - ${parametros.mensagemErro} Cod.01-2",
         ),
       );
     }
