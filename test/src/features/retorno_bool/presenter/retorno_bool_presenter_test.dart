@@ -20,7 +20,7 @@ void main() {
       datasource: datasource,
       mostrarTempoExecucao: true,
       nomeFeature: 'SalvarHeader',
-    ).retornoBool(
+    ).retornoResultado(
       parametros: ParametrosSalvarHeader(
         corHeader: {
           "r": 60,
@@ -52,7 +52,7 @@ void main() {
       datasource: datasource,
       mostrarTempoExecucao: true,
       nomeFeature: 'SalvarHeader',
-    ).retornoBool(
+    ).retornoResultado(
       parametros: ParametrosSalvarHeader(
         corHeader: {
           "r": 60,
@@ -86,7 +86,7 @@ void main() {
       datasource: datasource,
       mostrarTempoExecucao: true,
       nomeFeature: 'SalvarHeader',
-    ).retornoBool(
+    ).retornoResultado(
       parametros: ParametrosSalvarHeader(
         corHeader: {
           "r": 60,
