@@ -3,8 +3,8 @@ import '../../../utilitarios/Parametros.dart';
 import '../repositories/retorno_resultado_repository.dart';
 import '../usecases/retorno_resultado_usecase.dart';
 
-class RetornoResultadoPresenter {
-  final Datasource<bool, ParametrosRetornoResultado> datasource;
+class RetornoResultadoPresenter<T> {
+  final Datasource<T, ParametrosRetornoResultado> datasource;
   final bool mostrarTempoExecucao;
   final String nomeFeature;
 
@@ -14,14 +14,14 @@ class RetornoResultadoPresenter {
     required this.nomeFeature,
   });
 
-  Future<RetornoSucessoOuErro<bool>> retornoBool(
+  Future<RetornoSucessoOuErro<T>> retornoBool(
       {required ParametrosRetornoResultado parametros}) async {
     TempoExecucao tempo = TempoExecucao();
     if (mostrarTempoExecucao) {
       tempo.iniciar();
     }
-    final resultado = await RetornoResultadoUsecase(
-      repositorio: RetornoResultadoRepositorio(
+    final resultado = await RetornoResultadoUsecase<T>(
+      repositorio: RetornoResultadoRepositorio<T>(
         datasource: datasource,
       ),
     )(parametros: parametros);

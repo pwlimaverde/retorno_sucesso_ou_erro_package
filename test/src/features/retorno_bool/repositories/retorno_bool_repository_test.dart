@@ -15,7 +15,7 @@ void main() {
   setUp(() {
     tempo = TempoExecucao();
     datasource = FairebaseSalvarHeaderDatasourceMock();
-    repositorio = RetornoResultadoRepositorio(datasource: datasource);
+    repositorio = RetornoResultadoRepositorio<bool>(datasource: datasource);
   });
 
   test('Deve retornar um sucesso com true', () async {
