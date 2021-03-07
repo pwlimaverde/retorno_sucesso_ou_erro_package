@@ -14,7 +14,7 @@ class RetornoResultadoPresenter<T> {
     required this.nomeFeature,
   });
 
-  Future<RetornoSucessoOuErro<T>> retornoBool(
+  Future<RetornoSucessoOuErro<T>> retornoResultado(
       {required ParametrosRetornoResultado parametros}) async {
     TempoExecucao tempo = TempoExecucao();
     if (mostrarTempoExecucao) {

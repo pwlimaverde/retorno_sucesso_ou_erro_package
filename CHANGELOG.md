@@ -1,3 +1,7 @@
+## [2.0.2]
+
+* TODO: Correção do presenter função de retornoResultado para retornoResultado.
+
 ## [2.0.1]
 
 * TODO: Correção dos tipos do repositorio e presenter.
