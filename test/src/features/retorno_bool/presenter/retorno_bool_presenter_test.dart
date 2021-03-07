@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
-import 'package:retorno_sucesso_ou_erro_package/src/features/retorno_bool/presenter/retorno_bool_presenter.dart';
+import 'package:retorno_sucesso_ou_erro_package/src/features/retorno_resultado/presenter/retorno_resultado_presenter.dart';
 import 'package:retorno_sucesso_ou_erro_package/src/utilitarios/Parametros.dart';
 
 class FairebaseSalvarHeaderDatasourceMock extends Mock
-    implements Datasource<bool, ParametrosRetornoBool> {}
+    implements Datasource<bool, ParametrosRetornoResultado> {}
 
 void main() {
-  late Datasource<bool, ParametrosRetornoBool> datasource;
+  late Datasource<bool, ParametrosRetornoResultado> datasource;
 
   setUp(() {
     datasource = FairebaseSalvarHeaderDatasourceMock();
@@ -16,7 +16,7 @@ void main() {
 
   test('Deve retornar um sucesso com true', () async {
     when(datasource).calls(#call).thenAnswer((_) => Future.value(true));
-    final result = await RetornoBoolPresenter(
+    final result = await RetornoResultadoPresenter(
       datasource: datasource,
       mostrarTempoExecucao: true,
       nomeFeature: 'SalvarHeader',
@@ -46,11 +46,9 @@ void main() {
         true);
   });
 
-  test(
-      'Deve retornar ErrorSalvarHeader com Erro ao salvar os dados do header Cod.01-1',
-      () async {
+  test('Deve retornar sucesso com false', () async {
     when(datasource).calls(#call).thenAnswer((_) => Future.value(false));
-    final result = await RetornoBoolPresenter(
+    final result = await RetornoResultadoPresenter(
       datasource: datasource,
       mostrarTempoExecucao: true,
       nomeFeature: 'SalvarHeader',
@@ -71,14 +69,20 @@ void main() {
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
     )}");
-    expect(result, isA<ErroRetorno<bool>>());
+    expect(result, isA<SucessoRetorno<bool>>());
+    expect(
+        result.fold(
+          sucesso: (value) => value.resultado,
+          erro: (value) => value.erro,
+        ),
+        false);
   });
 
   test(
       'Deve retornar ErrorSalvarHeader com Erro ao salvar os dados do header Cod.02-1',
       () async {
     when(datasource).calls(#call).thenThrow(Exception());
-    final result = await RetornoBoolPresenter(
+    final result = await RetornoResultadoPresenter(
       datasource: datasource,
       mostrarTempoExecucao: true,
       nomeFeature: 'SalvarHeader',
@@ -103,7 +107,7 @@ void main() {
   });
 }
 
-class ParametrosSalvarHeader implements ParametrosRetornoBool {
+class ParametrosSalvarHeader implements ParametrosRetornoResultado {
   final String doc;
   final String nome;
   final int prioridade;

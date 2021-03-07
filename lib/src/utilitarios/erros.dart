@@ -11,13 +11,13 @@ class ErroInesperado implements AppErro {
   }
 }
 
-class ErroRetornoBool implements AppErro {
+class ErroRetornoResultado implements AppErro {
   final String mensagem;
 
-  ErroRetornoBool({required this.mensagem});
+  ErroRetornoResultado({required this.mensagem});
 
   @override
   String toString() {
-    return "ErroRetornoBool - $mensagem";
+    return "ErroRetornoResultado - $mensagem";
   }
 }

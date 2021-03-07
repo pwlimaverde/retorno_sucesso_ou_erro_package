@@ -1,6 +1,6 @@
-import 'utilitarios/erros.dart';
+import '../utilitarios/erros.dart';
 import 'repositorio.dart';
-import 'utilitarios/retorno_sucesso_ou_erro.dart';
+import '../utilitarios/retorno_sucesso_ou_erro.dart';
 
 abstract class UseCase<R, Parametros> {
   Future<RetornoSucessoOuErro<R>> call({required Parametros parametros});
@@ -20,8 +20,6 @@ abstract class UseCase<R, Parametros> {
     }
   }
 }
-
-class NoParams {}
 
 // class Parametros extends Equatable {
 //   final int number;

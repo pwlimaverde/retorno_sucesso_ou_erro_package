@@ -1,5 +1,11 @@
-abstract class ParametrosRetornoBool {
+abstract class ParametrosRetornoResultado {
   final String mensagemErro;
 
-  ParametrosRetornoBool({required this.mensagemErro});
+  ParametrosRetornoResultado({required this.mensagemErro});
+}
+
+class NoParams implements ParametrosRetornoResultado {
+  final String mensagemErro;
+
+  NoParams({required this.mensagemErro});
 }
