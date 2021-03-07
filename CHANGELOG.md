@@ -1,3 +1,7 @@
+## [2.0.0]
+
+* TODO: Break point devido aos ajustes no hotfix 1.3.1.
+
 ## [1.3.1]
 
 * TODO: Feature para retorno bool global alterada para RetornoResultado generico.
