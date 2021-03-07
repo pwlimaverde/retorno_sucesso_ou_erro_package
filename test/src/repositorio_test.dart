@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
-import 'package:retorno_sucesso_ou_erro_package/src/repositorio.dart';
+import 'package:retorno_sucesso_ou_erro_package/src/core/repositorio.dart';
 
 class ChecarConeccaoUsecase extends UseCase<bool, NoParams> {
   final Repositorio<bool, NoParams> repositorio;
@@ -15,7 +15,7 @@ class ChecarConeccaoUsecase extends UseCase<bool, NoParams> {
     final resultado = await retornoRepositorio(
       repositorio: repositorio,
       erro: ErroInesperado(mensagem: "teste erro direto usecase"),
-      parametros: NoParams(),
+      parametros: NoParams(mensagemErro: 'teste Usecase'),
     );
     return resultado;
   }
@@ -31,7 +31,7 @@ class ChecarConeccaoRepositorio extends Repositorio<bool, NoParams> {
     final resultado = retornoDatasource(
       datasource: datasource,
       erro: ErroInesperado(mensagem: "teste erro direto repositorio"),
-      parametros: NoParams(),
+      parametros: NoParams(mensagemErro: 'teste Usecase'),
     );
     return resultado;
   }
@@ -52,7 +52,8 @@ void main() {
 
   test('Deve retornar um sucesso com true', () async {
     when(datasource).calls(#call).thenAnswer((_) => Future.value(true));
-    final result = await checarConeccaoUseCase(parametros: NoParams());
+    final result = await checarConeccaoUseCase(
+        parametros: NoParams(mensagemErro: 'teste Usecase'));
     print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
@@ -63,7 +64,8 @@ void main() {
   test('Deve retornar um sucesso com false', () async {
     checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
     when(datasource).calls(#call).thenAnswer((_) => Future.value(false));
-    final result = await checarConeccaoUseCase(parametros: NoParams());
+    final result = await checarConeccaoUseCase(
+        parametros: NoParams(mensagemErro: 'teste Usecase'));
     print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,
@@ -76,7 +78,8 @@ void main() {
       () async {
     checarConeccaoUseCase = ChecarConeccaoUsecase(repositorio: repositorio);
     when(datasource).calls(#call).thenThrow(Exception());
-    final result = await checarConeccaoUseCase(parametros: NoParams());
+    final result = await checarConeccaoUseCase(
+        parametros: NoParams(mensagemErro: 'teste Usecase'));
     print("teste result - ${result.fold(
       sucesso: (value) => value.resultado,
       erro: (value) => value.erro,

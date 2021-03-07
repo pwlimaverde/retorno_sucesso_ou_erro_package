@@ -1,24 +1,24 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
-import 'package:retorno_sucesso_ou_erro_package/src/features/retorno_bool/usecases/retorno_bool_usecase.dart';
+import 'package:retorno_sucesso_ou_erro_package/src/features/retorno_resultado/usecases/retorno_resultado_usecase.dart';
 import 'package:retorno_sucesso_ou_erro_package/src/utilitarios/Parametros.dart';
 
-class RetornoBoolRepositorioMock extends Mock
-    implements Repositorio<bool, ParametrosRetornoBool> {}
+class RetornoResultadoRepositorioMock extends Mock
+    implements Repositorio<bool, ParametrosRetornoResultado> {}
 
 void main() {
-  late Repositorio<bool, ParametrosRetornoBool> repositorio;
-  late UseCase<bool, ParametrosRetornoBool> retornoBoolUsecase;
+  late Repositorio<bool, ParametrosRetornoResultado> repositorio;
+  late UseCase<bool, ParametrosRetornoResultado> retornoBoolUsecase;
   late TempoExecucao tempo;
 
   setUp(() {
     tempo = TempoExecucao();
-    repositorio = RetornoBoolRepositorioMock();
-    retornoBoolUsecase = RetornoBoolUsecase(repositorio: repositorio);
+    repositorio = RetornoResultadoRepositorioMock();
+    retornoBoolUsecase = RetornoResultadoUsecase(repositorio: repositorio);
   });
 
-  test('Deve retornar um sucesso com bool', () async {
+  test('Deve retornar um sucesso com true', () async {
     tempo.iniciar();
     when(repositorio)
         .calls(#call)
@@ -51,9 +51,7 @@ void main() {
         true);
   });
 
-  test(
-      'Deve retornar um ErroRetornoBool com Erro ao salvar os dados do header Cod.01-1',
-      () async {
+  test('Deve retornar um sucesso com false', () async {
     tempo.iniciar();
     when(repositorio).calls(#call).thenAnswer(
         (_) => Future.value(SucessoRetorno<bool>(resultado: false)));
@@ -76,17 +74,23 @@ void main() {
     )}");
     tempo.terminar();
     print("Tempo de Execução do SignIn: ${tempo.calcularExecucao()}ms");
-    expect(result, isA<ErroRetorno<bool>>());
+    expect(result, isA<SucessoRetorno<bool>>());
+    expect(
+        result.fold(
+          sucesso: (value) => value.resultado,
+          erro: (value) => value.erro,
+        ),
+        false);
   });
 
   test(
-      'Deve retornar um ErroRetornoBool com Erro ao salvar os dados do header Cod.02-1',
+      'Deve retornar um ErroRetornoResultado com Erro ao salvar os dados do header Cod.02-1',
       () async {
     tempo.iniciar();
     when(repositorio).calls(#call).thenAnswer(
           (_) => Future.value(
             ErroRetorno<bool>(
-              erro: ErroRetornoBool(
+              erro: ErroRetornoResultado(
                 mensagem: "Erro ao salvar os dados do header Cod.02-1",
               ),
             ),
@@ -115,7 +119,7 @@ void main() {
   });
 
   test(
-      'Deve retornar um ErroRetornoBool, pela exeption do repositorio com Erro ao salvar os dados do header Cod.01-2',
+      'Deve retornar um ErroRetornoResultado, pela exeption do repositorio com Erro ao salvar os dados do header Cod.01-2',
       () async {
     tempo.iniciar();
     when(repositorio).calls(#call).thenThrow(Exception());
@@ -142,7 +146,7 @@ void main() {
   });
 }
 
-class ParametrosSalvarHeader implements ParametrosRetornoBool {
+class ParametrosSalvarHeader implements ParametrosRetornoResultado {
   final String doc;
   final String nome;
   final int prioridade;

@@ -1,21 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:retorno_sucesso_ou_erro_package/retorno_sucesso_ou_erro_package.dart';
-import 'package:retorno_sucesso_ou_erro_package/src/features/retorno_bool/repositories/retorno_bool_repository.dart';
+import 'package:retorno_sucesso_ou_erro_package/src/features/retorno_resultado/repositories/retorno_resultado_repository.dart';
 import 'package:retorno_sucesso_ou_erro_package/src/utilitarios/Parametros.dart';
 
 class FairebaseSalvarHeaderDatasourceMock extends Mock
-    implements Datasource<bool, ParametrosRetornoBool> {}
+    implements Datasource<bool, ParametrosRetornoResultado> {}
 
 void main() {
-  late Datasource<bool, ParametrosRetornoBool> datasource;
-  late Repositorio<bool, ParametrosRetornoBool> repositorio;
+  late Datasource<bool, ParametrosRetornoResultado> datasource;
+  late Repositorio<bool, ParametrosRetornoResultado> repositorio;
   late TempoExecucao tempo;
 
   setUp(() {
     tempo = TempoExecucao();
     datasource = FairebaseSalvarHeaderDatasourceMock();
-    repositorio = RetornoBoolRepositorio(datasource: datasource);
+    repositorio = RetornoResultadoRepositorio(datasource: datasource);
   });
 
   test('Deve retornar um sucesso com true', () async {
@@ -81,7 +81,7 @@ void main() {
   });
 
   test(
-      'Deve retornar ErroRetornoBool com Erro ao salvar os dados do header Cod.02-1',
+      'Deve retornar ErroRetornoResultado com Erro ao salvar os dados do header Cod.02-1',
       () async {
     tempo.iniciar();
     when(datasource).calls(#call).thenThrow(Exception());
@@ -108,7 +108,7 @@ void main() {
   });
 }
 
-class ParametrosSalvarHeader implements ParametrosRetornoBool {
+class ParametrosSalvarHeader implements ParametrosRetornoResultado {
   final String doc;
   final String nome;
   final int prioridade;
